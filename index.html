@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriLink</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .glass { backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%); background: rgba(255,255,255,0.28); }
+    .soft-gradient { background: radial-gradient(1200px 600px at -10% -20%, #d1fae5 0%, rgba(255,255,255,0) 60%), radial-gradient(1000px 500px at 110% -10%, #e9d5ff 0%, rgba(255,255,255,0) 55%), linear-gradient(180deg, #f8fafc 0%, #ecfccb 100%); }
+  </style>
+</head>
+<body class="text-slate-900" style="background-image:url('bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl">
+          <span class="inline-block w-8 h-8 rounded-full bg-lime-500"></span>
+          AgriLink
+        </a>
+        <nav class="flex-1 hidden md:flex justify-center items-center gap-12 text-sm font-medium">
+          <a href="index.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 bg-[#D9E58C] font-semibold transform transition duration-200 ease-out hover:scale-105 scale-105">Beranda</a>
+          <a href="quest.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Layanan</a>
+          <a href="agrinews.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">AgriNews</a>
+          <a href="about.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Tentang Kami</a>
+        </nav>
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-slate-300" aria-label="Open Menu">☰</button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white/90">
+      <div class="max-w-7xl mx-auto px-4 py-3 space-y-2">
+        <a class="block" href="index.html">Home</a>
+        <a class="block" href="catalog.html">Services</a>
+        <a class="block" href="agrinews.html">AgriNews</a>
+        <a class="block" href="about.html">About Us</a>
+        <div class="pt-2 flex gap-2">
+          <a href="login.html" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300">Log in</a>
+          <a href="register.html" class="flex-1 text-center px-4 py-2 rounded-full bg-lime-600 text-white">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-20 pb-14">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+            Ekosistem Digital Ketahanan Pangan
+            <span class="text-lime-700">yang Lebih Adil</span> <span class="text-lime-700">Transparan</span>
+          </h1>
+          <div class="mt-6 flex items-center gap-4">
+            <div class="flex -space-x-3">
+              <span class="w-10 h-10 rounded-full bg-[url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop')] bg-cover border-2 border-white"></span>
+              <span class="w-10 h-10 rounded-full bg-[url('https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop')] bg-cover border-2 border-white"></span>
+            </div>
+            <div class="text-sm">
+              <div class="font-semibold text-xl">50K+</div>
+              <div class="text-slate-600">Users</div>
+            </div>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#flow" class="inline-flex justify-center w-48 text-center px-5 py-3 rounded-full border border-black/40 bg-white/20 backdrop-blur text-slate-900 hover:bg-white/30 hover:border-white/60 transition">Jelajahi Alurnya</a>
+            <a href="register.html" class="inline-flex justify-center w-48 text-center px-5 py-3 rounded-full border border-black/40 bg-white/20 backdrop-blur text-slate-900 hover:bg-white/30 hover:border-white/60 transition">Bergabung</a>
+          </div>
+        </div>
+        <!-- Container untuk gambar di kanan -->
+        <div class="relative flex justify-end">
+            <div class="relative">
+            <!-- Gambar utama -->
+            <div class="rounded-3xl overflow-hidden w-[444px] shadow-2xl ring-1 ring-slate-200">
+                <img class="w-full h-[420px] object-cover" 
+                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" 
+                    alt="Terraced fields" />
+            </div>
+        
+            <!-- Rice field overlay card (tetap di kiri gambar) -->
+            <div class="absolute -left-12 top-12 glass rounded-2xl p-3 shadow border border-white/60 w-40 text-center">
+                <img class="w-32 h-20 object-cover rounded-lg mx-auto" src="ricefield.png" alt="Rice field" />
+                <div class="mt-2 text-xs">
+                <div class="font-semibold">Agriculture</div>
+                With AgriLink, prices are transparent and quality is ensured.
+                </div>
+            </div>
+            </div>
+        </div>
+  
+  
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="categoriesGrid" class="grid md:grid-cols-3 gap-6">
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl" style="will-change: transform;">
+          <img class="mx-auto h-36" src="agriculture.png" alt="Agriculture" />
+          <h3 class="text-center mt-4 text-lg font-semibold">Pertanian</h3>
+        </div>
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl" style="will-change: transform;">
+          <img class="mx-auto h-36" src="fishery.png" alt="Fisheries" />
+          <h3 class="text-center mt-4 text-lg font-semibold">Perikanan</h3>
+        </div>
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl" style="will-change: transform;">
+          <img class="mx-auto h-36" src="livestock.png" alt="Livestock" />
+          <h3 class="text-center mt-4 text-lg font-semibold">Pertenakan</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="flow" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-[1fr,2fr] gap-10 items-center">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold">Bagaimana AgriLink Bekerja?</h2>
+          <p class="mt-3 text-slate-600 max-w-md">Agrilink menghubungkan petani dengan konsumen melalui platform yang transparan dan terpercaya.</p>
+        </div>
+        <div class="glass rounded-3xl p-6 md:p-8 shadow border border-white/60">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="text-center md:w-1/3">
+              <div class="w-12 h-12 mx-auto rounded-full bg-lime-100 overflow-hidden"><img src="petani.png" alt="Petani" class="w-full h-full object-cover rounded-full" /></div>
+              <div class="mt-2 font-semibold">Petani</div>
+              <div class="text-xs text-slate-600">Memanen hasil terbaik</div>
+            </div>
+            <div class="text-slate-500 text-2xl md:block self-center">→</div>
+            <div class="text-center md:w-1/3">
+              <div class="w-12 h-12 mx-auto rounded-full bg-sky-100 flex items-center justify-center">💻</div>
+              <div class="mt-2 font-semibold">AgriLink</div>
+              <div class="text-xs text-slate-600">Memverifikasi & menghubungkan</div>
+            </div>
+            <div class="text-slate-500 text-2xl md:block self-center">→</div>
+            <div class="text-center md:w-1/3">
+              <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 flex items-center justify-center">🏠</div>
+              <div class="mt-2 font-semibold">Konsumen</div>
+              <div class="text-xs text-slate-600">Mendapatkan kualitas terjamin</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps + Why Choose -->
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10">
+      <!-- Steps -->
+      <div class="bg-white rounded-3xl p-6 shadow border border-slate-100">
+        <h3 class="text-xl font-bold">Steps</h3>
+        <ol class="mt-6 space-y-6">
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-lime-100 text-lime-700 flex items-center justify-center font-bold">1</div>
+            <div>
+              <div class="font-semibold">Create Request</div>
+              <div class="text-sm text-slate-600">Describe the product you need</div>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-lime-100 text-lime-700 flex items-center justify-center font-bold">2</div>
+            <div>
+              <div class="font-semibold">Receive Offers</div>
+              <div class="text-sm text-slate-600">Producers send their best offers</div>
+            </div>
+          </li>
+          <li class="flex items-start gap-4">
+            <div class="w-8 h-8 rounded-full bg-lime-100 text-lime-700 flex items-center justify-center font-bold">3</div>
+            <div>
+              <div class="font-semibold">Choose & Buy</div>
+              <div class="text-sm text-slate-600">Pick the best offer and transact</div>
+            </div>
+          </li>
+        </ol>
+        <a href="quest.html" class="mt-6 inline-block px-5 py-3 rounded-full bg-lime-600 text-white hover:bg-lime-700">Start Quest Now</a>
+      </div>
+
+      <!-- Why Choose -->
+      <div>
+        <h3 class="text-2xl font-extrabold">Need Special Supply?</h3>
+        <p class="mt-2 text-slate-600">Use the Quest Pangan feature to create custom requests. Verified producers will respond with the best offers tailored to your needs.</p>
+
+        <h3 class="mt-8 text-xl font-bold">Why Choose AgriLink?</h3>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+            <div class="text-2xl">💰</div>
+            <div class="font-semibold mt-2">Fair & Transparent Pricing</div>
+            <div class="text-sm text-slate-600">Open pricing reduces asymmetry and speculation.</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+            <div class="text-2xl">✅</div>
+            <div class="font-semibold mt-2">Guaranteed Quality</div>
+            <div class="text-sm text-slate-600">Quality verification ensures consistent standards.</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+            <div class="text-2xl">⚡</div>
+            <div class="font-semibold mt-2">Consistent Supply</div>
+            <div class="text-sm text-slate-600">Smart distribution keeps supply stable.</div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+            <div class="text-2xl">🛡️</div>
+            <div class="font-semibold mt-2">Verified Producers</div>
+            <div class="text-sm text-slate-600">Onboarded sellers with identity verification.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <h3 class="text-2xl font-extrabold">Join the Agricultural Revolution</h3>
+      <p class="mt-2 text-slate-300">Be part of positive change in Indonesia's food ecosystem. Together we build a fair, transparent future for producers and consumers.</p>
+      <div class="mt-6 flex justify-center gap-3">
+        <a href="register.html" class="px-5 py-3 rounded-full bg-lime-500 text-slate-900 font-semibold hover:bg-lime-400">Sign up as Buyer</a>
+        <a href="register.html?seller=1" class="px-5 py-3 rounded-full border border-white/30 hover:bg-white/10">Become a Business Partner</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid md:grid-cols-4 gap-10">
+        <div>
+          <div class="flex items-center gap-2 font-extrabold text-xl text-white">
+            <span class="inline-block w-8 h-8 rounded-full bg-lime-500"></span>
+            AgriLink
+          </div>
+          <p class="mt-3 text-sm">Connecting producers to markets for a better food future.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Services</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="catalog.html" class="hover:underline">Marketplace</a></li>
+            <li><a href="distribution.html" class="hover:underline">Logistics</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Education</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Company</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="about.html" class="hover:underline">Careers</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Blog</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Contact</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="mailto:hello@agrilink.id" class="hover:underline">hello@agrilink.id</a></li>
+            <li><a href="tel:+622112345678" class="hover:underline">+62 21 1234 5678</a></li>
+            <li><span>Jakarta, Indonesia</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 text-xs text-slate-500">© 2024 AgriLink. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn && btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        
+        // Auto-rotating focus carousel for category cards
+        const grid = document.getElementById('categoriesGrid');
+        const cards = grid ? Array.from(grid.querySelectorAll('.cat-card')) : [];
+        let active = 1; // start center
+        let hoverLock = false;
+
+        function applyFocus(index){
+          cards.forEach((card, i)=>{
+            const isActive = i === index;
+            card.style.zIndex = isActive ? '10' : '0';
+            card.style.transform = isActive ? 'scale(1.06)' : 'scale(0.96) translateY(4px)';
+            card.classList.toggle('shadow-xl', isActive);
+            card.classList.toggle('shadow', !isActive);
+          });
+        }
+        
+        function tick(){
+          if(hoverLock || cards.length === 0) return;
+          active = (active + 1) % cards.length;
+          applyFocus(active);
+        }
+
+        if(cards.length){
+          // initial state
+          applyFocus(active);
+          const timer = setInterval(tick, 5000);
+
+          // Hover behavior: focus hovered card and pause rotation
+          cards.forEach((card, i)=>{
+            card.addEventListener('mouseenter', ()=>{
+              hoverLock = true;
+              applyFocus(i);
+            });
+            card.addEventListener('mouseleave', ()=>{
+              hoverLock = false;
+              // keep current focus as active so rotation continues from there
+              active = i;
+            });
+          });
+        }
+  </script>
+</body>
+</html>

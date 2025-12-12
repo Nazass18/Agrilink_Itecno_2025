@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriLink – Order Tracking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <a href="buyer-dashboard.html" class="text-sm underline">← Back</a>
+    <h1 class="mt-4 text-3xl font-extrabold">Real-time Tracking</h1>
+    <div class="mt-4 bg-white rounded-2xl p-5 shadow border border-slate-100">
+      <div class="flex gap-3">
+        <input id="orderId" class="flex-1 rounded-lg border-slate-300" placeholder="Enter Order ID (e.g., ORD-1001)" />
+        <button onclick="track()" class="px-4 rounded-lg bg-lime-600 text-white">Track</button>
+      </div>
+      <div id="status" class="mt-4 text-sm text-slate-600">Awaiting input…</div>
+      <div class="mt-4">
+        <div class="w-full bg-slate-200 rounded-full h-2">
+          <div id="bar" class="h-2 rounded-full bg-lime-600" style="width:0%"></div>
+        </div>
+        <div id="steps" class="mt-3 grid grid-cols-5 text-xs text-center text-slate-600">
+          <div>Confirmed</div><div>Allocated</div><div>Picked Up</div><div>In Transit</div><div>Delivered</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function track(){
+      const id = document.getElementById('orderId').value || 'ORD-1001';
+      const status = document.getElementById('status');
+      const bar = document.getElementById('bar');
+      const labels = ['Confirmed','Allocated','Picked Up','In Transit','Delivered'];
+      let step = 0;
+      status.textContent = `Tracking ${id}…`;
+      bar.style.width='0%';
+      const timer = setInterval(()=>{
+        if(step>=labels.length){ clearInterval(timer); return; }
+        status.textContent = `${labels[step]} — ${new Date().toLocaleTimeString()}`;
+        bar.style.width = `${(step+1)/labels.length*100}%`;
+        step++;
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriLink – Smart Order Distribution</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl"><span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink</a>
+      <a href="quest.html" class="text-sm underline">Back to Quest</a>
+    </div>
+    <h1 class="mt-6 text-3xl font-extrabold">Smart Order Distribution</h1>
+    <p class="text-slate-600">Split a large order across multiple sellers to minimize cost and meet grades.</p>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+        <h3 class="font-semibold">Order</h3>
+        <div class="grid grid-cols-2 gap-3 mt-3">
+          <div>
+            <label class="text-sm">Product</label>
+            <input id="oProduct" class="mt-1 w-full rounded-lg border-slate-300" value="Red Chili" />
+          </div>
+          <div>
+            <label class="text-sm">Grade</label>
+            <select id="oGrade" class="mt-1 w-full rounded-lg border-slate-300"><option>A</option><option>B</option><option>C</option></select>
+          </div>
+          <div>
+            <label class="text-sm">Quantity (kg)</label>
+            <input id="oQty" type="number" value="1000" class="mt-1 w-full rounded-lg border-slate-300" />
+          </div>
+          <div>
+            <label class="text-sm">Max Price (Rp/kg)</label>
+            <input id="oMax" type="number" value="40000" class="mt-1 w-full rounded-lg border-slate-300" />
+          </div>
+        </div>
+        <button class="mt-4 px-4 py-2 rounded-lg bg-lime-600 text-white" onclick="solve()">Run Optimization</button>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+        <h3 class="font-semibold">Available Sellers</h3>
+        <p class="text-sm text-slate-600">You can edit price/capacity.</p>
+        <div id="sellerList" class="mt-3 space-y-2"></div>
+      </div>
+    </div>
+
+    <div class="mt-6 bg-white rounded-2xl p-5 shadow border border-slate-100">
+      <h3 class="font-semibold">Allocation Result</h3>
+      <div id="result" class="mt-3"></div>
+    </div>
+  </div>
+
+  <template id="sellerTpl">
+    <div class="grid grid-cols-[1fr,120px,120px] gap-3 items-center">
+      <div class="font-medium"></div>
+      <input type="number" class="price rounded-lg border-slate-300" />
+      <input type="number" class="cap rounded-lg border-slate-300" />
+    </div>
+  </template>
+
+  <script>
+    const sellers = [
+      {name:'Farmer A (A)', grade:'A', price:38000, cap:300},
+      {name:'Farmer B (A)', grade:'A', price:40000, cap:400},
+      {name:'Coop C (B)', grade:'B', price:32000, cap:600},
+      {name:'Coop D (C)', grade:'C', price:25000, cap:800}
+    ];
+    const sellerList = document.getElementById('sellerList');
+    const tpl = document.getElementById('sellerTpl');
+    sellers.forEach(s=>{
+      const node = tpl.content.cloneNode(true);
+      node.querySelector('div').textContent = s.name;
+      node.querySelector('.price').value = s.price;
+      node.querySelector('.cap').value = s.cap;
+      sellerList.appendChild(node);
+    });
+
+    function solve(){
+      const qty = Number(document.getElementById('oQty').value);
+      const max = Number(document.getElementById('oMax').value);
+      const grade = document.getElementById('oGrade').value;
+      const rows = [...sellerList.querySelectorAll('.grid')];
+      const pool = rows.map((r,i)=>({
+        ...sellers[i],
+        price: Number(r.querySelector('.price').value),
+        cap: Number(r.querySelector('.cap').value)
+      })).filter(s=>s.price<=max && (s.grade<=grade || grade==='C' || (grade==='B' && s.grade!=='C')));
+
+      pool.sort((a,b)=>a.price-b.price);
+      let remaining = qty; let totalCost = 0; const alloc=[];
+      for(const s of pool){
+        if(remaining<=0) break;
+        const take = Math.min(s.cap, remaining);
+        if(take>0){
+          alloc.push({seller:s.name, qty:take, price:s.price, cost: take*s.price});
+          totalCost += take*s.price; remaining -= take;
+        }
+      }
+      const res = document.getElementById('result');
+      if(remaining>0){
+        res.innerHTML = `<div class='text-red-600'>Insufficient capacity. Remaining ${remaining} kg.</div>`;
+      } else {
+        const rows = alloc.map(a=>`<tr><td class='py-1 pr-4'>${a.seller}</td><td class='py-1 pr-4 text-right'>${a.qty}</td><td class='py-1 pr-4 text-right'>Rp ${a.price.toLocaleString('id-ID')}</td><td class='py-1 pr-4 text-right'>Rp ${a.cost.toLocaleString('id-ID')}</td></tr>`).join('');
+        res.innerHTML = `<div class='overflow-x-auto'><table class='text-sm'><thead><tr class='text-slate-500'><th class='pr-4 text-left'>Seller</th><th class='pr-4 text-right'>Qty (kg)</th><th class='pr-4 text-right'>Price</th><th class='pr-4 text-right'>Cost</th></tr></thead><tbody>${rows}</tbody></table></div><div class='mt-3 font-semibold'>Total Cost: Rp ${totalCost.toLocaleString('id-ID')}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriLink – Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+  <div class="w-full max-w-2xl bg-white rounded-2xl shadow p-6">
+    <a href="index.html" class="flex items-center gap-2 font-extrabold text-xl mb-6"><span class="w-8 h-8 bg-lime-500 rounded-full"></span>AgriLink</a>
+    <h1 class="text-2xl font-bold">Create your account</h1>
+    <p class="text-slate-600 text-sm mt-1">Choose role and complete verification if you are a seller.</p>
+    <form class="mt-6 grid md:grid-cols-2 gap-4" onsubmit="event.preventDefault(); handleRegister();">
+      <div class="md:col-span-2">
+        <label class="text-sm font-medium">Role</label>
+        <div class="mt-2 flex gap-3">
+          <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="buyer" checked class="text-lime-600"> Buyer</label>
+          <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="seller" class="text-lime-600"> Seller</label>
+        </div>
+      </div>
+      <div>
+        <label class="text-sm font-medium">Full Name</label>
+        <input id="name" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+      </div>
+      <div>
+        <label class="text-sm font-medium">Email</label>
+        <input id="email" type="email" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+      </div>
+      <div>
+        <label class="text-sm font-medium">Password</label>
+        <input id="password" type="password" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+      </div>
+      <div>
+        <label class="text-sm font-medium">Phone</label>
+        <input id="phone" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+      </div>
+
+      <!-- Seller verification -->
+      <div class="md:col-span-2 border rounded-xl p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold">Seller Verification</div>
+            <div class="text-sm text-slate-600">Required for selling on AgriLink</div>
+          </div>
+          <label class="inline-flex items-center gap-2">
+            <input id="isSeller" type="checkbox" class="w-5 h-5 text-lime-600" />
+            <span>I'm registering as Seller</span>
+          </label>
+        </div>
+        <div id="sellerFields" class="grid md:grid-cols-2 gap-4 mt-4 hidden">
+          <div>
+            <label class="text-sm font-medium">Business/Group Name</label>
+            <input id="biz" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">Province</label>
+            <input id="province" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm font-medium">ID/License Number</label>
+            <input id="idnum" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" placeholder="KTP/NIB/Group ID" />
+          </div>
+        </div>
+      </div>
+
+      <div class="md:col-span-2">
+        <button class="w-full py-2.5 rounded-lg bg-lime-600 text-white font-semibold hover:bg-lime-700">Create Account</button>
+      </div>
+      <div class="md:col-span-2 text-sm text-slate-600">Already have an account? <a class="text-lime-700" href="login.html">Login</a></div>
+    </form>
+  </div>
+
+  <script>
+    const isSeller = document.getElementById('isSeller');
+    const sellerFields = document.getElementById('sellerFields');
+    isSeller.addEventListener('change', () => {
+      sellerFields.classList.toggle('hidden', !isSeller.checked);
+      document.querySelector('input[name=role][value=seller]').checked = isSeller.checked;
+      document.querySelector('input[name=role][value=buyer]').checked = !isSeller.checked;
+    });
+
+    function handleRegister(){
+      const role = document.querySelector('input[name=role]:checked').value;
+      if(role === 'seller' || isSeller.checked){
+        alert('Account created. Seller verification submitted for review.');
+        window.location.href = 'seller-dashboard.html';
+      } else {
+        alert('Account created. Welcome!');
+        window.location.href = 'buyer-dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
