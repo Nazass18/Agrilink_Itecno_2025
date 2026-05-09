@@ -14,7 +14,7 @@
     .soft-gradient { background: radial-gradient(1200px 600px at -10% -20%, #d1fae5 0%, rgba(255,255,255,0) 60%), radial-gradient(1000px 500px at 110% -10%, #e9d5ff 0%, rgba(255,255,255,0) 55%), linear-gradient(180deg, #f8fafc 0%, #ecfccb 100%); }
   </style>
 </head>
-<body class="text-slate-900" style="background-image:url('bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
+<body class="text-slate-900" style="background-image:url('assets/img/bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
 
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/60">
@@ -25,13 +25,13 @@
         </a>
         <nav class="flex-1 hidden md:flex justify-center items-center gap-3 text-sm font-medium">
           <a href="index.html" data-navpage="index.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Beranda</a>
-          <a href="quest.html" data-navpage="quest.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Layanan</a>
-          <a href="agrinews.html" data-navpage="agrinews.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">AgriNews</a>
-          <a href="about.html" data-navpage="about.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Tentang Kami</a>
+          <a href="pages/quest.html" data-navpage="quest.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Layanan</a>
+          <a href="pages/agrinews.html" data-navpage="agrinews.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">AgriNews</a>
+          <a href="pages/about.html" data-navpage="about.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Tentang Kami</a>
         </nav>
         <div class="hidden md:flex items-center gap-2">
-          <a href="login.html" class="px-4 py-2 rounded-full border border-slate-400 text-sm font-medium hover:bg-slate-100 transition">Masuk</a>
-          <a href="register.html" class="px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold hover:bg-lime-700 transition">Daftar</a>
+          <a href="pages/login.html" class="px-4 py-2 rounded-full border border-slate-400 text-sm font-medium hover:bg-slate-100 transition">Masuk</a>
+          <a href="pages/register.html" class="px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold hover:bg-lime-700 transition">Daftar</a>
         </div>
         <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-slate-300" aria-label="Open Menu">&#9776;</button>
       </div>
@@ -39,12 +39,12 @@
     <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white/95 backdrop-blur">
       <div class="max-w-7xl mx-auto px-4 py-3 space-y-1">
         <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="index.html">Beranda</a>
-        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="quest.html">Layanan</a>
-        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="agrinews.html">AgriNews</a>
-        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="about.html">Tentang Kami</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="pages/quest.html">Layanan</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="pages/agrinews.html">AgriNews</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="pages/about.html">Tentang Kami</a>
         <div class="pt-2 flex gap-2 border-t border-slate-100 mt-2">
-          <a href="login.html" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300 text-sm font-medium">Masuk</a>
-          <a href="register.html" class="flex-1 text-center px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold">Daftar</a>
+          <a href="pages/login.html" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300 text-sm font-medium">Masuk</a>
+          <a href="pages/register.html" class="flex-1 text-center px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold">Daftar</a>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
           </div>
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="#flow" class="inline-flex justify-center w-48 text-center px-5 py-3 rounded-full border border-black/40 bg-white/20 backdrop-blur text-slate-900 hover:bg-white/40 transition">Jelajahi Alurnya</a>
-            <a href="register.html" class="inline-flex justify-center w-48 text-center px-5 py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Bergabung Sekarang</a>
+            <a href="pages/register.html" class="inline-flex justify-center w-48 text-center px-5 py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Bergabung Sekarang</a>
           </div>
         </div>
         <div class="relative flex justify-end reveal">
@@ -81,7 +81,7 @@
               <img class="w-full h-[420px] object-cover" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt="Terraced fields" />
             </div>
             <div class="absolute -left-12 top-12 glass rounded-2xl p-3 shadow border border-white/60 w-40 text-center">
-              <img class="w-32 h-20 object-cover rounded-lg mx-auto" src="ricefield.png" alt="Rice field" />
+              <img class="w-32 h-20 object-cover rounded-lg mx-auto" src="assets/img/ricefield.png" alt="Rice field" />
               <div class="mt-2 text-xs">
                 <div class="font-semibold">Agriculture</div>
                 Harga transparan dan kualitas terjamin bersama AgriLink.
@@ -98,18 +98,18 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-extrabold mb-6 text-center reveal">Kategori Komoditas</h2>
       <div id="categoriesGrid" class="grid md:grid-cols-3 gap-6">
-        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='quest.html'" style="will-change:transform;">
-          <img class="mx-auto h-36" src="agriculture.png" alt="Agriculture" />
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='pages/quest.html'" style="will-change:transform;">
+          <img class="mx-auto h-36" src="assets/img/agriculture.png" alt="Agriculture" />
           <h3 class="text-center mt-4 text-lg font-semibold">Pertanian</h3>
           <p class="text-center text-sm text-slate-500 mt-1">Padi, jagung, sayuran & lebih</p>
         </div>
-        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='quest.html'" style="will-change:transform;">
-          <img class="mx-auto h-36" src="fishery.png" alt="Fisheries" />
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='pages/quest.html'" style="will-change:transform;">
+          <img class="mx-auto h-36" src="assets/img/fishery.png" alt="Fisheries" />
           <h3 class="text-center mt-4 text-lg font-semibold">Perikanan</h3>
           <p class="text-center text-sm text-slate-500 mt-1">Ikan, udang, hasil laut segar</p>
         </div>
-        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='quest.html'" style="will-change:transform;">
-          <img class="mx-auto h-36" src="livestock.png" alt="Livestock" />
+        <div class="cat-card bg-white rounded-3xl p-6 shadow border border-slate-100 transform transition duration-500 ease-out hover:scale-105 hover:shadow-xl cursor-pointer reveal" onclick="window.location.href='pages/quest.html'" style="will-change:transform;">
+          <img class="mx-auto h-36" src="assets/img/livestock.png" alt="Livestock" />
           <h3 class="text-center mt-4 text-lg font-semibold">Peternakan</h3>
           <p class="text-center text-sm text-slate-500 mt-1">Daging, telur & produk ternak</p>
         </div>
@@ -124,12 +124,12 @@
         <div class="reveal">
           <h2 class="text-2xl sm:text-3xl font-extrabold">Bagaimana AgriLink Bekerja?</h2>
           <p class="mt-3 text-slate-600 max-w-md">AgriLink menghubungkan petani dengan konsumen melalui platform yang transparan dan terpercaya.</p>
-          <a href="quest.html" class="mt-6 inline-block px-5 py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Mulai Sekarang →</a>
+          <a href="pages/quest.html" class="mt-6 inline-block px-5 py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Mulai Sekarang →</a>
         </div>
         <div class="glass rounded-3xl p-6 md:p-8 shadow border border-white/60 reveal">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div class="text-center md:w-1/3">
-              <div class="w-12 h-12 mx-auto rounded-full bg-lime-100 overflow-hidden"><img src="petani.png" alt="Petani" class="w-full h-full object-cover rounded-full" /></div>
+              <div class="w-12 h-12 mx-auto rounded-full bg-lime-100 overflow-hidden"><img src="assets/img/petani.png" alt="Petani" class="w-full h-full object-cover rounded-full" /></div>
               <div class="mt-2 font-semibold">Petani</div>
               <div class="text-xs text-slate-600">Memanen hasil terbaik</div>
             </div>
@@ -170,7 +170,7 @@
             <div><div class="font-semibold">Pilih & Beli</div><div class="text-sm text-slate-600">Pilih penawaran terbaik dan lakukan transaksi</div></div>
           </li>
         </ol>
-        <a href="quest.html" class="mt-6 inline-block px-5 py-3 rounded-full bg-lime-600 text-white hover:bg-lime-700 transition">Mulai Quest Sekarang</a>
+        <a href="pages/quest.html" class="mt-6 inline-block px-5 py-3 rounded-full bg-lime-600 text-white hover:bg-lime-700 transition">Mulai Quest Sekarang</a>
       </div>
 
       <div class="reveal">
@@ -209,8 +209,8 @@
       <h3 class="text-2xl font-extrabold">Bergabunglah dalam Revolusi Pertanian</h3>
       <p class="mt-2 text-slate-300">Jadilah bagian dari perubahan positif ekosistem pangan Indonesia. Bersama kita membangun masa depan yang adil dan transparan.</p>
       <div class="mt-6 flex justify-center gap-3 flex-wrap">
-        <a href="register.html" class="px-5 py-3 rounded-full bg-lime-500 text-slate-900 font-semibold hover:bg-lime-400 transition">Daftar sebagai Pembeli</a>
-        <a href="register.html?seller=1" class="px-5 py-3 rounded-full border border-white/30 hover:bg-white/10 transition">Jadi Mitra Bisnis</a>
+        <a href="pages/register.html" class="px-5 py-3 rounded-full bg-lime-500 text-slate-900 font-semibold hover:bg-lime-400 transition">Daftar sebagai Pembeli</a>
+        <a href="pages/register.html?seller=1" class="px-5 py-3 rounded-full border border-white/30 hover:bg-white/10 transition">Jadi Mitra Bisnis</a>
       </div>
     </div>
   </section>
@@ -226,17 +226,17 @@
         <div>
           <h4 class="text-white font-semibold">Layanan</h4>
           <ul class="mt-3 space-y-2 text-sm">
-            <li><a href="quest.html" class="hover:underline">Quest Pangan</a></li>
-            <li><a href="distribution.html" class="hover:underline">Logistik</a></li>
-            <li><a href="agrinews.html" class="hover:underline">Edukasi</a></li>
+            <li><a href="pages/quest.html" class="hover:underline">Quest Pangan</a></li>
+            <li><a href="pages/distribution.html" class="hover:underline">Logistik</a></li>
+            <li><a href="pages/agrinews.html" class="hover:underline">Edukasi</a></li>
           </ul>
         </div>
         <div>
           <h4 class="text-white font-semibold">Perusahaan</h4>
           <ul class="mt-3 space-y-2 text-sm">
-            <li><a href="about.html" class="hover:underline">Tentang Kami</a></li>
-            <li><a href="agrinews.html" class="hover:underline">Blog</a></li>
-            <li><a href="about.html" class="hover:underline">Karir</a></li>
+            <li><a href="pages/about.html" class="hover:underline">Tentang Kami</a></li>
+            <li><a href="pages/agrinews.html" class="hover:underline">Blog</a></li>
+            <li><a href="pages/about.html" class="hover:underline">Karir</a></li>
           </ul>
         </div>
         <div>
