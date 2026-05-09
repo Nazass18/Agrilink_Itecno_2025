@@ -1,35 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgriLink – Buyer Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class="bg-slate-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl"><span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink</a>
-      <a class="text-sm underline" href="login.html">Logout</a>
-    </div>
-    <h1 class="mt-6 text-3xl font-extrabold">Buyer Dashboard</h1>
-    <div class="mt-6 grid lg:grid-cols-3 gap-6">
-      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100 lg:col-span-2">
-        <h3 class="font-semibold">Browse Catalog</h3>
-        <p class="text-sm text-slate-600">Go to <a class="underline" href="catalog.html">Catalog</a> to add items.</p>
-        <h3 class="mt-6 font-semibold">Create Quest</h3>
-        <a href="quest.html" class="inline-block mt-2 px-4 py-2 rounded-lg bg-lime-600 text-white">New Quest</a>
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl">
+          <span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink
+        </a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-medium">
+          <a href="buyer-dashboard.html" class="px-4 py-2 rounded-full bg-lime-50 text-lime-700 border border-lime-200 font-semibold">Dashboard</a>
+          <a href="quest.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Quest Pangan</a>
+          <a href="agrinews.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">AgriNews</a>
+          <a href="tracking.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Tracking</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <span class="hidden md:block text-sm text-slate-600">Halo, <strong>Pembeli</strong> 👋</span>
+          <a href="login.html" class="px-4 py-2 rounded-full border border-slate-300 text-sm hover:bg-slate-100 transition">Keluar</a>
+        </div>
       </div>
-      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
-        <h3 class="font-semibold">Orders</h3>
-        <ul class="mt-3 text-sm space-y-2">
-          <li>ORD-1001 — In Transit <a class="underline" href="tracking.html">Track</a></li>
-          <li>ORD-0998 — Delivered</li>
-        </ul>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-2xl p-4 shadow border border-slate-100 text-center">
+        <div class="text-2xl font-extrabold text-lime-700">3</div>
+        <div class="text-xs text-slate-500 mt-1">Pesanan Aktif</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow border border-slate-100 text-center">
+        <div class="text-2xl font-extrabold text-lime-700">12</div>
+        <div class="text-xs text-slate-500 mt-1">Total Pesanan</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow border border-slate-100 text-center">
+        <div class="text-2xl font-extrabold text-lime-700">2</div>
+        <div class="text-xs text-slate-500 mt-1">Quest Aktif</div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 shadow border border-slate-100 text-center">
+        <div class="text-2xl font-extrabold text-lime-700">98%</div>
+        <div class="text-xs text-slate-500 mt-1">Tepat Waktu</div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+      <!-- Orders -->
+      <div class="lg:col-span-2 bg-white rounded-2xl shadow border border-slate-100">
+        <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+          <h2 class="font-bold text-lg">Pesanan Saya</h2>
+          <div class="flex gap-2" id="orderTabs">
+            <button data-tab="active" class="tab-btn px-3 py-1 rounded-full text-xs font-medium bg-lime-600 text-white">Aktif</button>
+            <button data-tab="done" class="tab-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-300 text-slate-600 hover:bg-slate-50">Selesai</button>
+          </div>
+        </div>
+        <div id="orderList" class="divide-y divide-slate-100">
+        </div>
+        <div class="p-5 border-t border-slate-100">
+          <a href="quest.html" class="inline-block px-5 py-2.5 rounded-full bg-lime-600 text-white text-sm font-semibold hover:bg-lime-700 transition">+ Quest Baru</a>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="space-y-4">
+        <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+          <h3 class="font-semibold mb-3">Aksi Cepat</h3>
+          <div class="space-y-2">
+            <a href="quest.html" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-lime-50 hover:border-lime-200 border border-transparent transition">
+              <span class="text-xl">🎯</span>
+              <div><div class="text-sm font-medium">Buat Quest Baru</div><div class="text-xs text-slate-500">Permintaan kustom</div></div>
+            </a>
+            <a href="tracking.html" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-lime-50 hover:border-lime-200 border border-transparent transition">
+              <span class="text-xl">📦</span>
+              <div><div class="text-sm font-medium">Lacak Pesanan</div><div class="text-xs text-slate-500">Real-time tracking</div></div>
+            </a>
+            <a href="agrinews.html" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-lime-50 hover:border-lime-200 border border-transparent transition">
+              <span class="text-xl">📰</span>
+              <div><div class="text-sm font-medium">AgriNews</div><div class="text-xs text-slate-500">Info harga & pasar</div></div>
+            </a>
+            <a href="distribution.html" class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-lime-50 hover:border-lime-200 border border-transparent transition">
+              <span class="text-xl">🚛</span>
+              <div><div class="text-sm font-medium">Distribusi Cerdas</div><div class="text-xs text-slate-500">Optimalkan pesanan</div></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-lime-600 text-white rounded-2xl p-5">
+          <h3 class="font-semibold">Tips AgriLink</h3>
+          <p class="text-lime-100 text-sm mt-2">Gunakan fitur Quest Pangan untuk mendapatkan harga terbaik dari produsen terverifikasi langsung.</p>
+          <a href="quest.html" class="mt-3 inline-block text-sm font-semibold underline">Coba Sekarang →</a>
+        </div>
       </div>
     </div>
   </div>
+
+  <script src="assets/js/nav.js"></script>
+  <script>
+    const orders = {
+      active: [
+        {id:'ORD-1003', product:'Beras Organik', qty:'100 Kg', seller:'PT. Sumber Pangan', status:'Dalam Perjalanan', statusColor:'bg-blue-100 text-blue-700', date:'10 Sep 2025'},
+        {id:'ORD-1002', product:'Cabai Merah', qty:'50 Kg', seller:'UD. Rasa Pedas', status:'Diproses', statusColor:'bg-yellow-100 text-yellow-700', date:'9 Sep 2025'},
+        {id:'ORD-1001', product:'Ikan Tuna', qty:'30 Kg', seller:'Koperasi Mina Bahari', status:'Dikonfirmasi', statusColor:'bg-lime-100 text-lime-700', date:'8 Sep 2025'},
+      ],
+      done: [
+        {id:'ORD-0998', product:'Jagung Manis', qty:'200 Kg', seller:'CV. Agro Mandiri', status:'Terkirim', statusColor:'bg-green-100 text-green-700', date:'5 Sep 2025'},
+        {id:'ORD-0995', product:'Udang Vaname', qty:'80 Kg', seller:'PT. Laut Sejahtera', status:'Terkirim', statusColor:'bg-green-100 text-green-700', date:'2 Sep 2025'},
+      ]
+    };
+
+    let activeTab = 'active';
+
+    function renderOrders(tab) {
+      const list = document.getElementById('orderList');
+      const items = orders[tab];
+      list.innerHTML = items.map(o => `
+        <div class="p-4 flex items-center justify-between gap-4 hover:bg-slate-50 transition">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-semibold text-sm">${o.id}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full ${o.statusColor} font-medium">${o.status}</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-0.5">${o.product} · ${o.qty}</div>
+            <div class="text-xs text-slate-400">${o.seller} · ${o.date}</div>
+          </div>
+          <a href="tracking.html" class="flex-shrink-0 px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-medium hover:bg-slate-700 transition">Lacak</a>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('orderTabs').addEventListener('click', function(e) {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      activeTab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.className = b.dataset.tab === activeTab
+          ? 'tab-btn px-3 py-1 rounded-full text-xs font-medium bg-lime-600 text-white'
+          : 'tab-btn px-3 py-1 rounded-full text-xs font-medium border border-slate-300 text-slate-600 hover:bg-slate-50';
+      });
+      renderOrders(activeTab);
+    });
+
+    renderOrders('active');
+  </script>
 </body>
 </html>
-
-

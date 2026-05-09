@@ -1,113 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgriLink – Smart Order Distribution</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class="bg-slate-50">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl"><span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink</a>
-      <a href="quest.html" class="text-sm underline">Back to Quest</a>
-    </div>
-    <h1 class="mt-6 text-3xl font-extrabold">Smart Order Distribution</h1>
-    <p class="text-slate-600">Split a large order across multiple sellers to minimize cost and meet grades.</p>
+<body class="bg-slate-50 text-slate-900">
 
-    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl">
+          <span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink
+        </a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-medium">
+          <a href="buyer-dashboard.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Dashboard</a>
+          <a href="quest.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Quest Pangan</a>
+          <a href="distribution.html" class="px-4 py-2 rounded-full bg-lime-50 text-lime-700 border border-lime-200 font-semibold">Distribusi</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="quest.html" class="text-sm text-slate-500 hover:text-slate-900 transition">← Kembali ke Quest</a>
+          <a href="login.html" class="px-4 py-2 rounded-full border border-slate-300 text-sm hover:bg-slate-100 transition">Keluar</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-6">
+      <h1 class="text-3xl font-extrabold">Smart Order Distribution</h1>
+      <p class="text-slate-600 mt-1">Pisahkan pesanan besar ke beberapa penjual untuk meminimalkan biaya dan memenuhi grade.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6">
+      <!-- Order form -->
       <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
-        <h3 class="font-semibold">Order</h3>
-        <div class="grid grid-cols-2 gap-3 mt-3">
+        <h3 class="font-semibold text-lg mb-4">Detail Pesanan</h3>
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="text-sm">Product</label>
-            <input id="oProduct" class="mt-1 w-full rounded-lg border-slate-300" value="Red Chili" />
+            <label class="text-xs font-medium text-slate-500">Produk</label>
+            <input id="oProduct" class="mt-1" value="Cabai Merah" />
           </div>
           <div>
-            <label class="text-sm">Grade</label>
-            <select id="oGrade" class="mt-1 w-full rounded-lg border-slate-300"><option>A</option><option>B</option><option>C</option></select>
+            <label class="text-xs font-medium text-slate-500">Grade Minimum</label>
+            <select id="oGrade" class="mt-1"><option>A</option><option>B</option><option>C</option></select>
           </div>
           <div>
-            <label class="text-sm">Quantity (kg)</label>
-            <input id="oQty" type="number" value="1000" class="mt-1 w-full rounded-lg border-slate-300" />
+            <label class="text-xs font-medium text-slate-500">Jumlah (Kg)</label>
+            <input id="oQty" type="number" value="1000" class="mt-1" min="1" />
           </div>
           <div>
-            <label class="text-sm">Max Price (Rp/kg)</label>
-            <input id="oMax" type="number" value="40000" class="mt-1 w-full rounded-lg border-slate-300" />
+            <label class="text-xs font-medium text-slate-500">Harga Maks (Rp/Kg)</label>
+            <input id="oMax" type="number" value="40000" class="mt-1" min="1" />
           </div>
         </div>
-        <button class="mt-4 px-4 py-2 rounded-lg bg-lime-600 text-white" onclick="solve()">Run Optimization</button>
+        <button onclick="solve()" class="mt-5 w-full py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">⚡ Jalankan Optimasi</button>
       </div>
 
+      <!-- Sellers -->
       <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
-        <h3 class="font-semibold">Available Sellers</h3>
-        <p class="text-sm text-slate-600">You can edit price/capacity.</p>
-        <div id="sellerList" class="mt-3 space-y-2"></div>
+        <h3 class="font-semibold text-lg mb-1">Daftar Penjual</h3>
+        <p class="text-xs text-slate-500 mb-3">Harga dan kapasitas dapat diedit.</p>
+        <div class="grid grid-cols-3 gap-1 text-xs text-slate-500 font-medium mb-1 px-1">
+          <div>Penjual</div><div class="text-center">Harga (Rp/Kg)</div><div class="text-center">Kapasitas (Kg)</div>
+        </div>
+        <div id="sellerList" class="space-y-2"></div>
       </div>
     </div>
 
+    <!-- Result -->
     <div class="mt-6 bg-white rounded-2xl p-5 shadow border border-slate-100">
-      <h3 class="font-semibold">Allocation Result</h3>
-      <div id="result" class="mt-3"></div>
+      <h3 class="font-semibold text-lg mb-1">Hasil Alokasi</h3>
+      <div id="result" class="mt-3 text-slate-500 text-sm">Klik "Jalankan Optimasi" untuk melihat hasil alokasi pesanan.</div>
     </div>
   </div>
 
   <template id="sellerTpl">
-    <div class="grid grid-cols-[1fr,120px,120px] gap-3 items-center">
-      <div class="font-medium"></div>
-      <input type="number" class="price rounded-lg border-slate-300" />
-      <input type="number" class="cap rounded-lg border-slate-300" />
+    <div class="grid grid-cols-3 gap-2 items-center">
+      <div class="font-medium text-sm sellerName truncate"></div>
+      <input type="number" class="price text-center" />
+      <input type="number" class="cap text-center" />
     </div>
   </template>
 
+  <script src="assets/js/nav.js"></script>
   <script>
     const sellers = [
-      {name:'Farmer A (A)', grade:'A', price:38000, cap:300},
-      {name:'Farmer B (A)', grade:'A', price:40000, cap:400},
-      {name:'Coop C (B)', grade:'B', price:32000, cap:600},
-      {name:'Coop D (C)', grade:'C', price:25000, cap:800}
+      {name:'Petani A (Grade A)', grade:'A', price:38000, cap:300},
+      {name:'Petani B (Grade A)', grade:'A', price:40000, cap:400},
+      {name:'Koperasi C (Grade B)', grade:'B', price:32000, cap:600},
+      {name:'Koperasi D (Grade C)', grade:'C', price:25000, cap:800}
     ];
+
     const sellerList = document.getElementById('sellerList');
     const tpl = document.getElementById('sellerTpl');
-    sellers.forEach(s=>{
+
+    sellers.forEach(s => {
       const node = tpl.content.cloneNode(true);
-      node.querySelector('div').textContent = s.name;
+      node.querySelector('.sellerName').textContent = s.name;
       node.querySelector('.price').value = s.price;
       node.querySelector('.cap').value = s.cap;
       sellerList.appendChild(node);
     });
 
-    function solve(){
+    function solve() {
       const qty = Number(document.getElementById('oQty').value);
       const max = Number(document.getElementById('oMax').value);
       const grade = document.getElementById('oGrade').value;
+      const product = document.getElementById('oProduct').value || 'Produk';
       const rows = [...sellerList.querySelectorAll('.grid')];
-      const pool = rows.map((r,i)=>({
+
+      if (!qty || qty <= 0) { showToast('Masukkan jumlah yang valid.'); return; }
+      if (!max || max <= 0) { showToast('Masukkan harga maksimum yang valid.'); return; }
+
+      const gradeOrder = ['A','B','C'];
+      const minGradeIdx = gradeOrder.indexOf(grade);
+
+      const pool = rows.map((r, i) => ({
         ...sellers[i],
         price: Number(r.querySelector('.price').value),
         cap: Number(r.querySelector('.cap').value)
-      })).filter(s=>s.price<=max && (s.grade<=grade || grade==='C' || (grade==='B' && s.grade!=='C')));
+      })).filter(s => s.price <= max && gradeOrder.indexOf(s.grade) <= minGradeIdx);
 
-      pool.sort((a,b)=>a.price-b.price);
-      let remaining = qty; let totalCost = 0; const alloc=[];
-      for(const s of pool){
-        if(remaining<=0) break;
+      pool.sort((a, b) => a.price - b.price);
+      let remaining = qty;
+      let totalCost = 0;
+      const alloc = [];
+
+      for (const s of pool) {
+        if (remaining <= 0) break;
         const take = Math.min(s.cap, remaining);
-        if(take>0){
-          alloc.push({seller:s.name, qty:take, price:s.price, cost: take*s.price});
-          totalCost += take*s.price; remaining -= take;
+        if (take > 0) {
+          alloc.push({seller: s.name, qty: take, price: s.price, cost: take * s.price});
+          totalCost += take * s.price;
+          remaining -= take;
         }
       }
+
       const res = document.getElementById('result');
-      if(remaining>0){
-        res.innerHTML = `<div class='text-red-600'>Insufficient capacity. Remaining ${remaining} kg.</div>`;
+      if (remaining > 0) {
+        res.innerHTML = `<div class="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 font-medium">⚠️ Kapasitas tidak cukup. Sisa ${remaining} Kg tidak dapat dipenuhi dengan harga dan grade yang ditentukan.</div>`;
       } else {
-        const rows = alloc.map(a=>`<tr><td class='py-1 pr-4'>${a.seller}</td><td class='py-1 pr-4 text-right'>${a.qty}</td><td class='py-1 pr-4 text-right'>Rp ${a.price.toLocaleString('id-ID')}</td><td class='py-1 pr-4 text-right'>Rp ${a.cost.toLocaleString('id-ID')}</td></tr>`).join('');
-        res.innerHTML = `<div class='overflow-x-auto'><table class='text-sm'><thead><tr class='text-slate-500'><th class='pr-4 text-left'>Seller</th><th class='pr-4 text-right'>Qty (kg)</th><th class='pr-4 text-right'>Price</th><th class='pr-4 text-right'>Cost</th></tr></thead><tbody>${rows}</tbody></table></div><div class='mt-3 font-semibold'>Total Cost: Rp ${totalCost.toLocaleString('id-ID')}</div>`;
+        const tableRows = alloc.map(a => `
+          <tr class="border-b border-slate-100 hover:bg-slate-50 transition">
+            <td class="py-2 pr-4 font-medium">${a.seller}</td>
+            <td class="py-2 pr-4 text-right">${a.qty.toLocaleString('id-ID')} Kg</td>
+            <td class="py-2 pr-4 text-right">Rp ${a.price.toLocaleString('id-ID')}</td>
+            <td class="py-2 text-right font-medium text-lime-700">Rp ${a.cost.toLocaleString('id-ID')}</td>
+          </tr>
+        `).join('');
+        res.innerHTML = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="text-left text-xs text-slate-500 border-b border-slate-200">
+                <th class="pb-2 pr-4">Penjual</th>
+                <th class="pb-2 pr-4 text-right">Jumlah</th>
+                <th class="pb-2 pr-4 text-right">Harga/Kg</th>
+                <th class="pb-2 text-right">Total Biaya</th>
+              </tr></thead>
+              <tbody>${tableRows}</tbody>
+            </table>
+          </div>
+          <div class="mt-4 p-4 bg-lime-50 border border-lime-200 rounded-xl flex flex-wrap gap-4 justify-between items-center">
+            <div><div class="text-xs text-slate-500">Total Pesanan</div><div class="font-bold text-lg">${qty.toLocaleString('id-ID')} Kg ${product}</div></div>
+            <div><div class="text-xs text-slate-500">Total Biaya</div><div class="font-bold text-lg text-lime-700">Rp ${totalCost.toLocaleString('id-ID')}</div></div>
+            <div><div class="text-xs text-slate-500">Rata-rata Harga</div><div class="font-bold text-lg">Rp ${Math.round(totalCost/qty).toLocaleString('id-ID')}/Kg</div></div>
+            <button onclick="showToast('✅ Pesanan berhasil dikonfirmasi!')" class="px-5 py-2.5 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Konfirmasi Pesanan</button>
+          </div>
+        `;
       }
     }
   </script>
 </body>
 </html>
-
-

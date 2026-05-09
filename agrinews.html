@@ -4,27 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgriLink – AgriNews</title>
+  <meta name="description" content="Wawasan pertanian, perikanan, peternakan, dan pembaruan harga terkini dari AgriLink." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
-    .soft { background: radial-gradient(900px 400px at -10% -10%, #d1fae5 0%, rgba(255,255,255,0) 60%), radial-gradient(800px 400px at 110% 0%, #e9d5ff 0%, rgba(255,255,255,0) 55%), linear-gradient(180deg, #f8fafc 0%, #ecfccb 100%); }
-    .chip[aria-pressed="true"]{ background:#0f172a; color:white; }
-  </style>
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body class="text-slate-900 soft" style="background-image:url('bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
+<body class="text-slate-900" style="background-image:url('bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
+
   <!-- Header -->
-  <header class="sticky top-0 z-40 bg-transparent">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl"><span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink</a>
-      <nav class="flex-1 hidden md:flex justify-center items-center gap-12 text-sm font-medium">
-        <a href="index.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Beranda</a>
-        <a href="quest.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Layanan</a>
-        <a href="agrinews.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 bg-[#D9E58C] font-semibold transform transition duration-200 ease-out hover:scale-105 scale-105">AgriNews</a>
-        <a href="about.html" class="inline-flex justify-center w-40 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Tentang Kami</a>
-      </nav>
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl">
+          <span class="inline-block w-8 h-8 rounded-full bg-lime-500"></span>AgriLink
+        </a>
+        <nav class="flex-1 hidden md:flex justify-center items-center gap-3 text-sm font-medium">
+          <a href="index.html" data-navpage="index.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Beranda</a>
+          <a href="quest.html" data-navpage="quest.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Layanan</a>
+          <a href="agrinews.html" data-navpage="agrinews.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">AgriNews</a>
+          <a href="about.html" data-navpage="about.html" class="inline-flex justify-center w-32 text-center px-4 py-2 rounded-full border border-slate-400 text-slate-900 transform transition duration-200 ease-out hover:scale-105">Tentang Kami</a>
+        </nav>
+        <div class="hidden md:flex items-center gap-2">
+          <a href="login.html" class="px-4 py-2 rounded-full border border-slate-400 text-sm font-medium hover:bg-slate-100 transition">Masuk</a>
+          <a href="register.html" class="px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold hover:bg-lime-700 transition">Daftar</a>
+        </div>
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-slate-300" aria-label="Open Menu">&#9776;</button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200 bg-white/95 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 py-3 space-y-1">
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="index.html">Beranda</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="quest.html">Layanan</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="agrinews.html">AgriNews</a>
+        <a class="block px-3 py-2 rounded-lg hover:bg-lime-50 font-medium" href="about.html">Tentang Kami</a>
+        <div class="pt-2 flex gap-2 border-t border-slate-100 mt-2">
+          <a href="login.html" class="flex-1 text-center px-4 py-2 rounded-full border border-slate-300 text-sm font-medium">Masuk</a>
+          <a href="register.html" class="flex-1 text-center px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold">Daftar</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -33,34 +52,40 @@
     <h1 class="text-3xl sm:text-4xl font-extrabold">AgriNews</h1>
     <p class="mt-2 text-slate-600 max-w-3xl">Wawasan pertanian, perikanan, peternakan, dan pembaruan harga untuk membantu keputusan bisnis Anda.</p>
     <div class="mt-4 flex flex-wrap gap-2 items-center">
-      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80" aria-pressed="true" data-cat="All">Semua</button>
-      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80" aria-pressed="false" data-cat="Price">Harga</button>
-      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80" aria-pressed="false" data-cat="Insight">Wawasan</button>
-      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80" aria-pressed="false" data-cat="Logistics">Logistik</button>
+      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80 text-sm transition" aria-pressed="true" data-cat="All">Semua</button>
+      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80 text-sm transition" aria-pressed="false" data-cat="Price">Harga</button>
+      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80 text-sm transition" aria-pressed="false" data-cat="Insight">Wawasan</button>
+      <button class="chip px-3 py-1.5 rounded-full border border-slate-300 bg-white/80 text-sm transition" aria-pressed="false" data-cat="Logistics">Logistik</button>
       <div class="relative ml-auto w-full sm:w-64">
-        <input id="search" class="w-full rounded-full border border-slate-300 bg-white/80 pl-10 pr-3 py-2" placeholder="Cari artikel..." />
-        <span class="absolute left-3 top-1.5">🔎</span>
+        <input id="search" class="w-full rounded-full border border-slate-300 bg-white/80 pl-10 pr-3 py-2 text-sm" placeholder="Cari artikel..." />
+        <span class="absolute left-3 top-2 text-slate-400">🔎</span>
       </div>
     </div>
   </section>
 
   <!-- Featured -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <a class="block rounded-3xl overflow-hidden border shadow bg-white/90 hover:shadow-lg transition" href="#">
+    <div id="featuredCard" class="block rounded-3xl overflow-hidden border shadow bg-white/90 hover:shadow-lg transition cursor-pointer">
       <div class="grid md:grid-cols-2 gap-0">
         <img class="h-56 md:h-64 w-full object-cover" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop" alt="Featured" />
         <div class="p-6">
           <div class="text-xs text-slate-500">Wawasan • 12 Sep 2025</div>
           <div class="mt-1 text-xl font-semibold">Strategi Sortasi untuk Mencapai Grade A di Komoditas Sayur</div>
           <div class="text-sm text-slate-600 mt-2">Ringkasan SOP sederhana agar kelompok tani dapat meningkatkan harga di tingkat petani melalui pemilahan dan penanganan pascapanen.</div>
+          <button class="mt-4 px-4 py-2 rounded-full bg-lime-600 text-white text-sm font-semibold hover:bg-lime-700 transition">Baca Selengkapnya</button>
         </div>
       </div>
-    </a>
+    </div>
   </section>
 
   <!-- Grid -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
     <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="emptyState" class="hidden text-center py-12 text-slate-500">
+      <div class="text-4xl mb-3">🔍</div>
+      <div class="font-semibold">Tidak ada artikel ditemukan</div>
+      <div class="text-sm mt-1">Coba kata kunci atau kategori yang berbeda</div>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -75,74 +100,137 @@
           <h4 class="text-white font-semibold">Layanan</h4>
           <ul class="mt-3 space-y-2 text-sm">
             <li><a href="quest.html" class="hover:underline">Quest Pangan</a></li>
-            <li><a href="#" class="hover:underline">Marketplace</a></li>
-            <li><a href="#" class="hover:underline">Edukasi</a></li>
+            <li><a href="distribution.html" class="hover:underline">Logistik</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Edukasi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold">Perusahaan</h4>
+          <ul class="mt-3 space-y-2 text-sm">
+            <li><a href="about.html" class="hover:underline">Tentang Kami</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Blog</a></li>
+            <li><a href="agrinews.html" class="hover:underline">Press</a></li>
           </ul>
         </div>
         <div>
           <h4 class="text-white font-semibold">Kontak</h4>
           <ul class="mt-3 space-y-2 text-sm">
-            <li>Email: hello@agrilink.id</li>
-            <li>Telepon: +62 21 1234 5678</li>
-            <li>Jakarta, Indonesia</li>
+            <li><a href="mailto:hello@agrilink.id" class="hover:underline">hello@agrilink.id</a></li>
+            <li><a href="tel:+622112345678" class="hover:underline">+62 21 1234 5678</a></li>
+            <li><span>Jakarta, Indonesia</span></li>
           </ul>
         </div>
       </div>
-      <div class="mt-10 text-xs text-slate-500">© 2024 AgriLink. Semua hak dilindungi.</div>
+      <div class="mt-10 text-xs text-slate-500">© 2025 AgriLink. Semua hak dilindungi.</div>
     </div>
   </footer>
 
+  <!-- Article Modal -->
+  <div id="articleModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+      <div class="relative">
+        <img id="modalImg" class="w-full h-52 object-cover rounded-t-3xl" src="" alt="" />
+        <button onclick="closeModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center text-lg hover:bg-black/70 transition">✕</button>
+      </div>
+      <div class="p-6">
+        <div id="modalMeta" class="text-xs text-slate-500"></div>
+        <h2 id="modalTitle" class="mt-2 text-2xl font-bold"></h2>
+        <p id="modalDesc" class="mt-3 text-slate-600 leading-relaxed"></p>
+        <div id="modalBody" class="mt-4 text-slate-700 text-sm leading-relaxed border-t pt-4"></div>
+        <button onclick="closeModal()" class="mt-6 px-5 py-2.5 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition">Tutup</button>
+      </div>
+    </div>
+  </div>
+
   <template id="newsTpl">
-    <a class="block bg-white rounded-2xl overflow-hidden border shadow hover:shadow-md transition" href="#">
+    <div class="bg-white rounded-2xl overflow-hidden border shadow hover:shadow-md transition cursor-pointer">
       <img class="w-full h-40 object-cover" />
       <div class="p-4">
         <div class="text-xs text-slate-500 meta"></div>
         <div class="mt-1 font-semibold title"></div>
         <div class="text-sm text-slate-600 mt-1 desc"></div>
+        <button class="mt-3 text-xs px-3 py-1 rounded-full bg-lime-50 text-lime-700 border border-lime-200 hover:bg-lime-100 transition readmore">Baca →</button>
       </div>
-    </a>
+    </div>
   </template>
 
+  <script src="assets/js/nav.js"></script>
   <script>
     const items = [
-      {title:'Harga Cabai Turun 8% Pasca Panen Puncak', date:'2025-09-10', img:'https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=1200&auto=format&fit=crop', desc:'Pasokan meningkat dari Jawa dan Sumatra menekan harga eceran.', cat:'Price'},
-      {title:'Permintaan Ikan Nila dari Hotel Naik', date:'2025-09-08', img:'https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200&auto=format&fit=crop', desc:'Sektor hospitality menaikkan permintaan Grade B menjelang liburan.', cat:'Insight'},
-      {title:'Ekspansi Rantai Dingin untuk Perikanan', date:'2025-09-05', img:'https://images.unsplash.com/photo-1592899677977-9c10ca5880d0?q=80&w=1200&auto=format&fit=crop', desc:'Rute baru dibuka untuk Sulawesi dan Bali.', cat:'Logistics'},
-      {title:'SOP Sortasi Grade A untuk Cabai', date:'2025-09-01', img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop', desc:'Langkah-langkah ringkas meningkatkan harga tingkat petani.', cat:'Insight'},
-      {title:'Outlook Harga Beras Tiga Minggu ke Depan', date:'2025-09-12', img:'https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop', desc:'Proyeksi berbasis panen raya dan stok Bulog.', cat:'Price'},
-      {title:'Teknologi Tracking untuk UMKM Pangan', date:'2025-09-09', img:'https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1200&auto=format&fit=crop', desc:'Transparansi distribusi menaikkan kepercayaan pembeli.', cat:'Logistics'}
+      {title:'Harga Cabai Turun 8% Pasca Panen Puncak', date:'2025-09-10', img:'https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=1200&auto=format&fit=crop', desc:'Pasokan meningkat dari Jawa dan Sumatra menekan harga eceran.', cat:'Price', body:'Berdasarkan data pantauan AgriLink, harga cabai merah keriting di level petani turun dari rata-rata Rp 38.000/kg menjadi Rp 35.000/kg. Kondisi ini dipicu oleh panen raya serentak di Jawa Tengah dan Sumatra Barat yang meningkatkan pasokan hingga 25%.'},
+      {title:'Permintaan Ikan Nila dari Hotel Naik', date:'2025-09-08', img:'https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200&auto=format&fit=crop', desc:'Sektor hospitality menaikkan permintaan Grade B menjelang liburan.', cat:'Insight', body:'Industri perhotelan dan restoran mulai meningkatkan pembelian ikan nila Grade B untuk mengantisipasi lonjakan tamu liburan. Permintaan naik sekitar 18% dibanding bulan sebelumnya, dengan fokus pada produk berbobot 300-500 gram per ekor.'},
+      {title:'Ekspansi Rantai Dingin untuk Perikanan', date:'2025-09-05', img:'https://images.unsplash.com/photo-1592899677977-9c10ca5880d0?q=80&w=1200&auto=format&fit=crop', desc:'Rute baru dibuka untuk Sulawesi dan Bali.', cat:'Logistics', body:'AgriLink bermitra dengan tiga perusahaan logistik dingin untuk membuka jalur distribusi baru ke Sulawesi dan Bali. Ekspansi ini diharapkan dapat memotong waktu pengiriman hasil laut segar dari 48 jam menjadi 24 jam.'},
+      {title:'SOP Sortasi Grade A untuk Cabai', date:'2025-09-01', img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop', desc:'Langkah-langkah ringkas meningkatkan harga tingkat petani.', cat:'Insight', body:'Panduan sortasi grade A mencakup: (1) Pilih cabai dengan warna merah cerata merata, (2) Ukuran minimal 8 cm, (3) Tidak ada bercak atau cacat kulit, (4) Kadar air rendah (kulit tidak lembek). Dengan menerapkan SOP ini, petani dapat meningkatkan harga jual 15-20%.'},
+      {title:'Outlook Harga Beras Tiga Minggu ke Depan', date:'2025-09-12', img:'https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=1200&auto=format&fit=crop', desc:'Proyeksi berbasis panen raya dan stok Bulog.', cat:'Price', body:'Stok beras Bulog per September 2025 berada di angka 1,2 juta ton, di atas target minimum 1 juta ton. Dengan jadwal panen raya Oktober, harga beras medium diperkirakan stabil di kisaran Rp 12.000-13.000/kg untuk tiga minggu ke depan.'},
+      {title:'Teknologi Tracking untuk UMKM Pangan', date:'2025-09-09', img:'https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1200&auto=format&fit=crop', desc:'Transparansi distribusi menaikkan kepercayaan pembeli.', cat:'Logistics', body:'Fitur real-time tracking AgriLink kini tersedia untuk UMKM dengan transaksi minimal 50 kg per pengiriman. Sistem ini memberikan update status setiap 2 jam, mencakup lokasi, suhu penyimpanan, dan estimasi waktu tiba.'}
     ];
 
     const wrap = document.getElementById('grid');
     const tpl = document.getElementById('newsTpl');
     const chips = document.querySelectorAll('.chip');
-    const search = document.getElementById('search');
+    const searchInput = document.getElementById('search');
+    const emptyState = document.getElementById('emptyState');
+    const modal = document.getElementById('articleModal');
 
-    chips.forEach(c=>c.addEventListener('click',()=>{
-      chips.forEach(x=>x.setAttribute('aria-pressed','false'));
+    chips.forEach(c => c.addEventListener('click', () => {
+      chips.forEach(x => x.setAttribute('aria-pressed','false'));
       c.setAttribute('aria-pressed','true');
       render();
     }));
-    search.addEventListener('input', render);
+    searchInput.addEventListener('input', render);
 
-    function render(){
-      const cat = [...chips].find(x=>x.getAttribute('aria-pressed')==='true').dataset.cat;
-      const q = (search.value||'').toLowerCase();
+    function render() {
+      const cat = [...chips].find(x => x.getAttribute('aria-pressed') === 'true').dataset.cat;
+      const q = (searchInput.value || '').toLowerCase();
+      const filtered = items.filter(n => (cat === 'All' || n.cat === cat) && (n.title.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q)));
       wrap.innerHTML = '';
-      items.filter(n=> (cat==='All'||n.cat===cat) && (n.title.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q)))
-        .forEach(n=>{
-          const node = tpl.content.cloneNode(true);
-          node.querySelector('img').src = n.img;
-          node.querySelector('img').alt = n.title;
-          node.querySelector('.meta').textContent = `${n.cat} • ${new Date(n.date).toLocaleDateString('id-ID')}`;
-          node.querySelector('.title').textContent = n.title;
-          node.querySelector('.desc').textContent = n.desc;
-          wrap.appendChild(node);
-        });
+      if (!filtered.length) { emptyState.classList.remove('hidden'); return; }
+      emptyState.classList.add('hidden');
+      filtered.forEach(n => {
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('img').src = n.img;
+        node.querySelector('img').alt = n.title;
+        node.querySelector('.meta').textContent = `${n.cat} • ${new Date(n.date).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'})}`;
+        node.querySelector('.title').textContent = n.title;
+        node.querySelector('.desc').textContent = n.desc;
+        const card = node.querySelector('div');
+        card.addEventListener('click', () => openModal(n));
+        node.querySelector('.readmore').addEventListener('click', (e) => { e.stopPropagation(); openModal(n); });
+        wrap.appendChild(node);
+      });
     }
+
+    function openModal(n) {
+      document.getElementById('modalImg').src = n.img;
+      document.getElementById('modalImg').alt = n.title;
+      document.getElementById('modalMeta').textContent = `${n.cat} • ${new Date(n.date).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'})}`;
+      document.getElementById('modalTitle').textContent = n.title;
+      document.getElementById('modalDesc').textContent = n.desc;
+      document.getElementById('modalBody').textContent = n.body || '';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+    document.getElementById('featuredCard').addEventListener('click', function() {
+      openModal({
+        img:'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1600&auto=format&fit=crop',
+        title:'Strategi Sortasi untuk Mencapai Grade A di Komoditas Sayur',
+        cat:'Wawasan',
+        date:'2025-09-12',
+        desc:'Ringkasan SOP sederhana agar kelompok tani dapat meningkatkan harga di tingkat petani melalui pemilahan dan penanganan pascapanen.',
+        body:'Panduan lengkap sortasi Grade A mencakup pemilihan berdasarkan warna, ukuran, dan kualitas kulit. Kelompok tani yang menerapkan SOP ini rata-rata meningkatkan pendapatan 15-20% per panen. AgriLink menyediakan pelatihan gratis bagi petani terverifikasi.'
+      });
+    });
+
     render();
   </script>
 </body>
 </html>
-
-

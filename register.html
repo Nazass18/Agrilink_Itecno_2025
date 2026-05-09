@@ -1,97 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriLink – Register</title>
+  <title>AgriLink – Daftar</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .strength-bar { height: 4px; border-radius: 9999px; transition: width 0.3s, background 0.3s; }
+  </style>
 </head>
-<body class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-  <div class="w-full max-w-2xl bg-white rounded-2xl shadow p-6">
-    <a href="index.html" class="flex items-center gap-2 font-extrabold text-xl mb-6"><span class="w-8 h-8 bg-lime-500 rounded-full"></span>AgriLink</a>
-    <h1 class="text-2xl font-bold">Create your account</h1>
-    <p class="text-slate-600 text-sm mt-1">Choose role and complete verification if you are a seller.</p>
-    <form class="mt-6 grid md:grid-cols-2 gap-4" onsubmit="event.preventDefault(); handleRegister();">
-      <div class="md:col-span-2">
-        <label class="text-sm font-medium">Role</label>
-        <div class="mt-2 flex gap-3">
-          <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="buyer" checked class="text-lime-600"> Buyer</label>
-          <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="seller" class="text-lime-600"> Seller</label>
-        </div>
-      </div>
-      <div>
-        <label class="text-sm font-medium">Full Name</label>
-        <input id="name" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-      </div>
-      <div>
-        <label class="text-sm font-medium">Email</label>
-        <input id="email" type="email" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-      </div>
-      <div>
-        <label class="text-sm font-medium">Password</label>
-        <input id="password" type="password" required class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-      </div>
-      <div>
-        <label class="text-sm font-medium">Phone</label>
-        <input id="phone" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-      </div>
+<body class="min-h-screen text-slate-900" style="background-image:url('bg-all.png'); background-size:cover; background-repeat:no-repeat; background-position:center;">
+  <div class="min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-2xl bg-white/95 backdrop-blur rounded-3xl shadow-2xl p-8 border border-white">
+      <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl mb-6">
+        <span class="w-8 h-8 bg-lime-500 rounded-full"></span>AgriLink
+      </a>
+      <h1 class="text-2xl font-bold">Buat Akun Baru</h1>
+      <p class="text-slate-600 text-sm mt-1">Pilih peran dan lengkapi verifikasi jika Anda mendaftar sebagai penjual.</p>
 
-      <!-- Seller verification -->
-      <div class="md:col-span-2 border rounded-xl p-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="font-semibold">Seller Verification</div>
-            <div class="text-sm text-slate-600">Required for selling on AgriLink</div>
+      <form id="registerForm" class="mt-6 grid md:grid-cols-2 gap-4" novalidate>
+        <!-- Role selector -->
+        <div class="md:col-span-2">
+          <label class="text-sm font-medium text-slate-700">Peran Anda</label>
+          <div class="mt-2 flex gap-3">
+            <label class="flex-1 flex items-center gap-3 p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-lime-400 transition has-[:checked]:border-lime-500 has-[:checked]:bg-lime-50">
+              <input type="radio" name="role" value="buyer" checked class="accent-lime-600"> 
+              <div><div class="font-semibold text-sm">Pembeli</div><div class="text-xs text-slate-500">Beli produk pertanian</div></div>
+            </label>
+            <label class="flex-1 flex items-center gap-3 p-3 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-lime-400 transition has-[:checked]:border-lime-500 has-[:checked]:bg-lime-50">
+              <input type="radio" name="role" value="seller" class="accent-lime-600">
+              <div><div class="font-semibold text-sm">Penjual</div><div class="text-xs text-slate-500">Jual hasil produksi</div></div>
+            </label>
           </div>
-          <label class="inline-flex items-center gap-2">
-            <input id="isSeller" type="checkbox" class="w-5 h-5 text-lime-600" />
-            <span>I'm registering as Seller</span>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700" for="name">Nama Lengkap</label>
+          <input id="name" required autocomplete="name" placeholder="Nama Lengkap" class="mt-1" />
+          <p id="nameErr" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-700" for="regEmail">Email</label>
+          <input id="regEmail" type="email" required autocomplete="email" placeholder="email@contoh.com" class="mt-1" />
+          <p id="regEmailErr" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-700" for="regPass">Password</label>
+          <div class="relative mt-1">
+            <input id="regPass" type="password" required placeholder="Min. 8 karakter" class="pr-10" />
+            <button type="button" onclick="togglePass('regPass',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">👁</button>
+          </div>
+          <div class="mt-1.5 flex gap-1">
+            <div class="flex-1 bg-slate-200 rounded-full overflow-hidden h-1"><div id="sb1" class="strength-bar w-0 bg-red-500"></div></div>
+            <div class="flex-1 bg-slate-200 rounded-full overflow-hidden h-1"><div id="sb2" class="strength-bar w-0 bg-yellow-500"></div></div>
+            <div class="flex-1 bg-slate-200 rounded-full overflow-hidden h-1"><div id="sb3" class="strength-bar w-0 bg-lime-500"></div></div>
+          </div>
+          <p id="strengthText" class="text-xs text-slate-400 mt-0.5"></p>
+          <p id="regPassErr" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-700" for="confirmPass">Konfirmasi Password</label>
+          <div class="relative mt-1">
+            <input id="confirmPass" type="password" required placeholder="Ulangi password" class="pr-10" />
+            <button type="button" onclick="togglePass('confirmPass',this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">👁</button>
+          </div>
+          <p id="confirmErr" class="hidden mt-1 text-xs text-red-500"></p>
+        </div>
+        <div class="md:col-span-2">
+          <label class="text-sm font-medium text-slate-700" for="phone">Nomor HP</label>
+          <input id="phone" type="tel" autocomplete="tel" placeholder="+62 8xx xxxx xxxx" class="mt-1" />
+        </div>
+
+        <!-- Seller verification -->
+        <div class="md:col-span-2 border-2 border-slate-200 rounded-2xl p-4 transition" id="sellerBox">
+          <label class="flex items-center justify-between cursor-pointer">
+            <div>
+              <div class="font-semibold text-sm">Verifikasi Penjual</div>
+              <div class="text-xs text-slate-500 mt-0.5">Diperlukan untuk berjualan di AgriLink</div>
+            </div>
+            <div class="relative">
+              <input id="isSeller" type="checkbox" class="sr-only peer" />
+              <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-lime-500 transition"></div>
+              <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition peer-checked:translate-x-5"></div>
+            </div>
           </label>
+          <div id="sellerFields" class="grid md:grid-cols-2 gap-4 mt-4 hidden">
+            <div>
+              <label class="text-sm font-medium text-slate-700">Nama Usaha/Kelompok</label>
+              <input id="biz" placeholder="PT. / CV. / Kelompok Tani" class="mt-1" />
+            </div>
+            <div>
+              <label class="text-sm font-medium text-slate-700">Provinsi</label>
+              <select id="province" class="mt-1">
+                <option value="">Pilih Provinsi</option>
+                <option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option>
+                <option>Sumatra Utara</option><option>Sulawesi Selatan</option><option>Bali</option><option>Lainnya</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="text-sm font-medium text-slate-700">No. KTP / NIB / ID Kelompok</label>
+              <input id="idnum" placeholder="Nomor identitas usaha" class="mt-1" />
+            </div>
+          </div>
         </div>
-        <div id="sellerFields" class="grid md:grid-cols-2 gap-4 mt-4 hidden">
-          <div>
-            <label class="text-sm font-medium">Business/Group Name</label>
-            <input id="biz" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-          </div>
-          <div>
-            <label class="text-sm font-medium">Province</label>
-            <input id="province" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" />
-          </div>
-          <div class="md:col-span-2">
-            <label class="text-sm font-medium">ID/License Number</label>
-            <input id="idnum" class="mt-1 w-full rounded-lg border-slate-300 focus:ring-lime-500 focus:border-lime-500" placeholder="KTP/NIB/Group ID" />
-          </div>
-        </div>
-      </div>
 
-      <div class="md:col-span-2">
-        <button class="w-full py-2.5 rounded-lg bg-lime-600 text-white font-semibold hover:bg-lime-700">Create Account</button>
-      </div>
-      <div class="md:col-span-2 text-sm text-slate-600">Already have an account? <a class="text-lime-700" href="login.html">Login</a></div>
-    </form>
+        <div class="md:col-span-2">
+          <button type="submit" id="regBtn" class="w-full py-3 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition flex items-center justify-center gap-2">
+            <span id="regBtnText">Buat Akun</span>
+            <svg id="regSpinner" class="hidden animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+          </button>
+        </div>
+        <div class="md:col-span-2 text-sm text-slate-600 text-center">
+          Sudah punya akun? <a class="text-lime-700 font-semibold hover:underline" href="login.html">Masuk</a>
+        </div>
+      </form>
+    </div>
   </div>
 
+  <script src="assets/js/nav.js"></script>
   <script>
-    const isSeller = document.getElementById('isSeller');
+    function togglePass(id, btn) {
+      const input = document.getElementById(id);
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      btn.textContent = isText ? '👁' : '🙈';
+    }
+
+    // Seller fields toggle
+    const isSellerChk = document.getElementById('isSeller');
     const sellerFields = document.getElementById('sellerFields');
-    isSeller.addEventListener('change', () => {
-      sellerFields.classList.toggle('hidden', !isSeller.checked);
-      document.querySelector('input[name=role][value=seller]').checked = isSeller.checked;
-      document.querySelector('input[name=role][value=buyer]').checked = !isSeller.checked;
+    isSellerChk.addEventListener('change', function() {
+      sellerFields.classList.toggle('hidden', !this.checked);
+      if (this.checked) {
+        document.querySelector('input[name=role][value=seller]').checked = true;
+      } else {
+        document.querySelector('input[name=role][value=buyer]').checked = true;
+      }
     });
 
-    function handleRegister(){
-      const role = document.querySelector('input[name=role]:checked').value;
-      if(role === 'seller' || isSeller.checked){
-        alert('Account created. Seller verification submitted for review.');
-        window.location.href = 'seller-dashboard.html';
-      } else {
-        alert('Account created. Welcome!');
-        window.location.href = 'buyer-dashboard.html';
-      }
+    // Role radio sync with seller toggle
+    document.querySelectorAll('input[name=role]').forEach(r => {
+      r.addEventListener('change', function() {
+        if (this.value === 'seller') {
+          isSellerChk.checked = true;
+          sellerFields.classList.remove('hidden');
+        } else {
+          isSellerChk.checked = false;
+          sellerFields.classList.add('hidden');
+        }
+      });
+    });
+
+    // Password strength
+    document.getElementById('regPass').addEventListener('input', function() {
+      const v = this.value;
+      let strength = 0;
+      if (v.length >= 8) strength++;
+      if (/[A-Z]/.test(v) && /[a-z]/.test(v)) strength++;
+      if (/[0-9]/.test(v) || /[^A-Za-z0-9]/.test(v)) strength++;
+      ['sb1','sb2','sb3'].forEach((id,i) => {
+        const el = document.getElementById(id);
+        el.style.width = strength > i ? '100%' : '0%';
+      });
+      const labels = ['','Lemah','Sedang','Kuat'];
+      document.getElementById('strengthText').textContent = v ? labels[strength] || 'Lemah' : '';
+    });
+
+    // Form submit
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+      const errs = ['nameErr','regEmailErr','regPassErr','confirmErr'];
+      errs.forEach(id => document.getElementById(id).classList.add('hidden'));
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pass = document.getElementById('regPass').value;
+      const confirm = document.getElementById('confirmPass').value;
+
+      if (!name) { showErr('nameErr','Nama tidak boleh kosong.'); valid=false; }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('regEmailErr','Email tidak valid.'); valid=false; }
+      if (!pass || pass.length < 8) { showErr('regPassErr','Password minimal 8 karakter.'); valid=false; }
+      if (pass !== confirm) { showErr('confirmErr','Password tidak cocok.'); valid=false; }
+      if (!valid) return;
+
+      const btn = document.getElementById('regBtn');
+      document.getElementById('regBtnText').textContent = 'Memproses...';
+      document.getElementById('regSpinner').classList.remove('hidden');
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const role = document.querySelector('input[name=role]:checked').value;
+        if (role === 'seller' || isSellerChk.checked) {
+          window.location.href = 'seller-dashboard.html';
+        } else {
+          window.location.href = 'buyer-dashboard.html';
+        }
+      }, 1400);
+    });
+
+    function showErr(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.classList.remove('hidden');
     }
   </script>
 </body>
 </html>
-
-

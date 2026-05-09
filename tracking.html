@@ -1,50 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriLink – Order Tracking</title>
+  <title>AgriLink – Lacak Pesanan</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .step-dot { width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; transition: all 0.5s; border: 2px solid #e2e8f0; background: white; color: #94a3b8; }
+    .step-dot.done { background: #16a34a; border-color: #16a34a; color: white; }
+    .step-dot.active { background: #65a30d; border-color: #65a30d; color: white; animation: pulse 1.5s infinite; }
+    .step-line { flex: 1; height: 3px; background: #e2e8f0; transition: background 0.5s; }
+    .step-line.done { background: #16a34a; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(101,163,13,0.4)} 50%{box-shadow:0 0 0 8px rgba(101,163,13,0)} }
+  </style>
 </head>
-<body class="bg-slate-50">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <a href="buyer-dashboard.html" class="text-sm underline">← Back</a>
-    <h1 class="mt-4 text-3xl font-extrabold">Real-time Tracking</h1>
-    <div class="mt-4 bg-white rounded-2xl p-5 shadow border border-slate-100">
-      <div class="flex gap-3">
-        <input id="orderId" class="flex-1 rounded-lg border-slate-300" placeholder="Enter Order ID (e.g., ORD-1001)" />
-        <button onclick="track()" class="px-4 rounded-lg bg-lime-600 text-white">Track</button>
-      </div>
-      <div id="status" class="mt-4 text-sm text-slate-600">Awaiting input…</div>
-      <div class="mt-4">
-        <div class="w-full bg-slate-200 rounded-full h-2">
-          <div id="bar" class="h-2 rounded-full bg-lime-600" style="width:0%"></div>
-        </div>
-        <div id="steps" class="mt-3 grid grid-cols-5 text-xs text-center text-slate-600">
-          <div>Confirmed</div><div>Allocated</div><div>Picked Up</div><div>In Transit</div><div>Delivered</div>
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="flex items-center gap-2 font-extrabold text-2xl">
+          <span class="w-8 h-8 rounded-full bg-lime-500"></span>AgriLink
+        </a>
+        <nav class="hidden md:flex items-center gap-2 text-sm font-medium">
+          <a href="buyer-dashboard.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Dashboard</a>
+          <a href="quest.html" class="px-4 py-2 rounded-full hover:bg-slate-100 transition">Quest Pangan</a>
+          <a href="tracking.html" class="px-4 py-2 rounded-full bg-lime-50 text-lime-700 border border-lime-200 font-semibold">Tracking</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="buyer-dashboard.html" class="text-sm text-slate-500 hover:text-slate-900 transition">← Dashboard</a>
+          <a href="login.html" class="px-4 py-2 rounded-full border border-slate-300 text-sm hover:bg-slate-100 transition">Keluar</a>
         </div>
       </div>
     </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-extrabold">Lacak Pesanan</h1>
+    <p class="text-slate-600 mt-1">Pantau status pengiriman pesanan Anda secara real-time.</p>
+
+    <!-- Search -->
+    <div class="mt-6 bg-white rounded-2xl p-5 shadow border border-slate-100">
+      <label class="text-sm font-medium text-slate-700">Nomor Pesanan</label>
+      <div class="flex gap-3 mt-2">
+        <input id="orderId" class="flex-1" placeholder="Masukkan ID pesanan (cth. ORD-1001)" value="ORD-1001" />
+        <button onclick="track()" id="trackBtn" class="px-5 py-2.5 rounded-full bg-lime-600 text-white font-semibold hover:bg-lime-700 transition flex-shrink-0">Lacak</button>
+      </div>
+      <!-- Quick orders -->
+      <div class="mt-3 flex flex-wrap gap-2">
+        <span class="text-xs text-slate-400">Pesanan saya:</span>
+        <button onclick="quickTrack('ORD-1003')" class="text-xs px-3 py-1 rounded-full bg-slate-100 hover:bg-lime-50 hover:text-lime-700 transition">ORD-1003</button>
+        <button onclick="quickTrack('ORD-1002')" class="text-xs px-3 py-1 rounded-full bg-slate-100 hover:bg-lime-50 hover:text-lime-700 transition">ORD-1002</button>
+        <button onclick="quickTrack('ORD-1001')" class="text-xs px-3 py-1 rounded-full bg-slate-100 hover:bg-lime-50 hover:text-lime-700 transition">ORD-1001</button>
+      </div>
+    </div>
+
+    <!-- Tracking result -->
+    <div id="trackResult" class="hidden mt-6 space-y-4">
+      <!-- Info -->
+      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="text-xs text-slate-500">Nomor Pesanan</div>
+            <div id="tOrderId" class="font-bold text-lg mt-0.5"></div>
+          </div>
+          <span id="tStatus" class="px-3 py-1 rounded-full text-sm font-semibold"></span>
+        </div>
+        <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+          <div><div class="text-xs text-slate-500">Produk</div><div id="tProduct" class="font-medium mt-0.5"></div></div>
+          <div><div class="text-xs text-slate-500">Penjual</div><div id="tSeller" class="font-medium mt-0.5"></div></div>
+          <div><div class="text-xs text-slate-500">Tujuan</div><div id="tDest" class="font-medium mt-0.5"></div></div>
+          <div><div class="text-xs text-slate-500">Estimasi Tiba</div><div id="tETA" class="font-medium mt-0.5"></div></div>
+        </div>
+      </div>
+
+      <!-- Stepper -->
+      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+        <h3 class="font-semibold mb-4">Status Pengiriman</h3>
+        <div class="flex items-center">
+          <div class="step-dot" id="dot0">1</div>
+          <div class="step-line" id="line0"></div>
+          <div class="step-dot" id="dot1">2</div>
+          <div class="step-line" id="line1"></div>
+          <div class="step-dot" id="dot2">3</div>
+          <div class="step-line" id="line2"></div>
+          <div class="step-dot" id="dot3">4</div>
+          <div class="step-line" id="line3"></div>
+          <div class="step-dot" id="dot4">5</div>
+        </div>
+        <div class="grid grid-cols-5 text-center mt-2">
+          <div class="text-xs text-slate-500">Dikonfirmasi</div>
+          <div class="text-xs text-slate-500">Dialokasi</div>
+          <div class="text-xs text-slate-500">Dipickup</div>
+          <div class="text-xs text-slate-500">Dalam Perjalanan</div>
+          <div class="text-xs text-slate-500">Terkirim</div>
+        </div>
+      </div>
+
+      <!-- Activity log -->
+      <div class="bg-white rounded-2xl p-5 shadow border border-slate-100">
+        <h3 class="font-semibold mb-3">Riwayat Aktivitas</h3>
+        <div id="activityLog" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="trackEmpty" class="hidden mt-6 text-center py-12 text-slate-400">
+      <div class="text-4xl mb-3">📦</div>
+      <div class="font-semibold">Pesanan tidak ditemukan</div>
+      <div class="text-sm mt-1">Periksa kembali nomor pesanan Anda</div>
+    </div>
   </div>
 
+  <script src="assets/js/nav.js"></script>
   <script>
-    function track(){
-      const id = document.getElementById('orderId').value || 'ORD-1001';
-      const status = document.getElementById('status');
-      const bar = document.getElementById('bar');
-      const labels = ['Confirmed','Allocated','Picked Up','In Transit','Delivered'];
-      let step = 0;
-      status.textContent = `Tracking ${id}…`;
-      bar.style.width='0%';
-      const timer = setInterval(()=>{
-        if(step>=labels.length){ clearInterval(timer); return; }
-        status.textContent = `${labels[step]} — ${new Date().toLocaleTimeString()}`;
-        bar.style.width = `${(step+1)/labels.length*100}%`;
-        step++;
-      }, 1200);
+    const STEPS = ['Dikonfirmasi','Dialokasi','Dipickup','Dalam Perjalanan','Terkirim'];
+    const STEP_ICONS = ['✅','📋','🚜','🚛','🏠'];
+
+    const mockOrders = {
+      'ORD-1003': { product:'Beras Organik 100 Kg', seller:'PT. Sumber Pangan Nusantara', dest:'Jakarta Pusat', eta:'11 Sep 2025', currentStep: 3 },
+      'ORD-1002': { product:'Cabai Merah 50 Kg', seller:'UD. Rasa Pedas', dest:'Bekasi', eta:'12 Sep 2025', currentStep: 1 },
+      'ORD-1001': { product:'Ikan Tuna 30 Kg', seller:'Koperasi Mina Bahari', dest:'Tangerang', eta:'13 Sep 2025', currentStep: 0 },
+    };
+
+    let trackInterval = null;
+    let trackingStep = 0;
+    let trackingOrder = null;
+
+    function quickTrack(id) {
+      document.getElementById('orderId').value = id;
+      track();
+    }
+
+    function track() {
+      if (trackInterval) { clearInterval(trackInterval); trackInterval = null; }
+      const id = document.getElementById('orderId').value.trim() || 'ORD-1001';
+      const order = mockOrders[id];
+
+      document.getElementById('trackResult').classList.add('hidden');
+      document.getElementById('trackEmpty').classList.add('hidden');
+
+      const btn = document.getElementById('trackBtn');
+      btn.textContent = 'Melacak...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = 'Lacak';
+        btn.disabled = false;
+        if (!order) { document.getElementById('trackEmpty').classList.remove('hidden'); return; }
+
+        trackingOrder = order;
+        document.getElementById('tOrderId').textContent = id;
+        document.getElementById('tProduct').textContent = order.product;
+        document.getElementById('tSeller').textContent = order.seller;
+        document.getElementById('tDest').textContent = order.dest;
+        document.getElementById('tETA').textContent = order.eta;
+
+        trackingStep = order.currentStep;
+        updateStepper(trackingStep);
+        document.getElementById('trackResult').classList.remove('hidden');
+
+        // Animate if not delivered yet
+        if (trackingStep < STEPS.length - 1) {
+          trackInterval = setInterval(() => {
+            if (trackingStep >= STEPS.length - 1) { clearInterval(trackInterval); return; }
+            trackingStep++;
+            updateStepper(trackingStep);
+            if (trackingStep === STEPS.length - 1) showToast('🏠 Pesanan telah terkirim!', 3000);
+          }, 3000);
+        }
+      }, 800);
+    }
+
+    function updateStepper(step) {
+      const statusEl = document.getElementById('tStatus');
+      statusEl.textContent = STEPS[step];
+      const colors = ['bg-slate-100 text-slate-700','bg-yellow-100 text-yellow-700','bg-orange-100 text-orange-700','bg-blue-100 text-blue-700','bg-green-100 text-green-700'];
+      statusEl.className = `px-3 py-1 rounded-full text-sm font-semibold ${colors[step]}`;
+
+      for (let i = 0; i < 5; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        dot.classList.remove('done','active');
+        dot.textContent = i < step ? '✓' : (i + 1);
+        if (i < step) dot.classList.add('done');
+        else if (i === step) dot.classList.add('active');
+        if (i < 4) {
+          const line = document.getElementById(`line${i}`);
+          line.classList.toggle('done', i < step);
+        }
+      }
+
+      // Activity log
+      const log = document.getElementById('activityLog');
+      const activities = [];
+      for (let i = step; i >= 0; i--) {
+        const time = new Date(Date.now() - (step - i) * 3600000 * 6);
+        activities.push(`
+          <div class="flex gap-3 items-start">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-base ${i <= step ? 'bg-lime-100' : 'bg-slate-100'}">${STEP_ICONS[i]}</div>
+            <div>
+              <div class="text-sm font-medium">${STEPS[i]}</div>
+              <div class="text-xs text-slate-400">${time.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}</div>
+            </div>
+          </div>
+        `);
+      }
+      log.innerHTML = activities.join('');
     }
   </script>
 </body>
 </html>
-
-
